@@ -24,7 +24,7 @@ func NewHandler(url1 string, url2 string) *Handler {
 	}
 }
 func (h *Handler) CallFistServer(cpf string) *entity.ResponseEntity {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*500)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1)
 	defer cancel()
 	cpfBuilder := cpf[0:5] + "-" + cpf[5:8]
 	req, err := http.NewRequestWithContext(ctx, "GET", strings.Replace(h.urlServer1, "{}", cpfBuilder, -1), nil)
@@ -55,7 +55,7 @@ func (h *Handler) CallFistServer(cpf string) *entity.ResponseEntity {
 }
 
 func (h *Handler) CallSecondServer(cpf string) *entity.ResponseEntity {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*500)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*1)
 	defer cancel()
 	req, err := http.NewRequestWithContext(ctx, "GET", strings.Replace(h.urlServer2, "{}", cpf, -1), nil)
 	if err != nil {
